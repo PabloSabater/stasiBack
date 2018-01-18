@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "stasidb": {
+    "host": "ds261527.mlab.com",
+    "port": 61527,
+    "url": "",
+    "database": "stasidb",
+    "password": "root1234",
+    "name": "stasidb",
+    "user": "root",
+    "connector": "mongodb"
+  }
+}

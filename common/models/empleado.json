@@ -1,0 +1,63 @@
+{
+  "name": "Empleado",
+  "plural": "empleados",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "apellido": {
+      "type": "string",
+      "required": true
+    },
+    "nacionalidad": {
+      "type": "string",
+      "required": true
+    },
+    "edad": {
+      "type": "number",
+      "required": true
+    },
+    "anyosExperiencia": {
+      "type": "number",
+      "required": true
+    },
+    "descPerfil": {
+      "type": "string",
+      "required": true
+    },
+    "experiencia": {
+      "type": [
+        "object"
+      ],
+      "required": true
+    },
+    "Formacion": {
+      "type": [
+        "object"
+      ],
+      "required": true
+    },
+    "formacionComplementaria": {
+      "type": [
+        "object"
+      ],
+      "required": true
+    },
+    "idiomas": {
+      "type": [
+        "object"
+      ],
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

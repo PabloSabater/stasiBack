@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Funcion": {
+    "dataSource": "stasidb",
+    "public": true
+  },
+  "Formacion": {
+    "dataSource": "stasidb",
+    "public": true
+  },
+  "FormacionComplementaria": {
+    "dataSource": "stasidb",
+    "public": true
+  },
+  "Idioma": {
+    "dataSource": "stasidb",
+    "public": true
+  },
+  "Empleado": {
+    "dataSource": "stasidb",
+    "public": true
+  }
+}
