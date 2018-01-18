@@ -30,34 +30,31 @@
     "descPerfil": {
       "type": "string",
       "required": true
-    },
-    "experiencia": {
-      "type": [
-        "object"
-      ],
-      "required": true
-    },
-    "Formacion": {
-      "type": [
-        "object"
-      ],
-      "required": true
-    },
-    "formacionComplementaria": {
-      "type": [
-        "object"
-      ],
-      "required": true
-    },
-    "idiomas": {
-      "type": [
-        "object"
-      ],
-      "required": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "experiencia": {
+      "type": "hasMany",
+      "model": "Experiencia",
+      "foreignKey": "empleadoId"
+    },
+    "formacion": {
+      "type": "hasMany",
+      "model": "Formacion",
+      "foreignKey": "empleadoId"
+    },
+    "formacionComplementaria": {
+      "type": "hasMany",
+      "model": "FormacionComplementaria",
+      "foreignKey": "empleadoId"
+    },
+    "idiomas": {
+      "type": "hasMany",
+      "model": "IdiomaEmpleado",
+      "foreignKey": "empleadoId"
+    }
+  },
   "acls": [],
   "methods": {}
 }

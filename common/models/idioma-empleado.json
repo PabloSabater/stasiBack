@@ -1,24 +1,20 @@
 {
-  "name": "Idioma",
-  "plural": "idiomas",
+  "name": "IdiomaEmpleado",
+  "plural": "idiomasEmpleado",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "nombre": {
+    "nivel": {
       "type": "string",
       "required": true
     }
   },
   "validations": [],
   "relations": {
-    "empleados": {
-      "type": "hasMany",
-      "model": "IdiomaEmpleado",
-      "foreignKey": "idiomaId"
-    }
+    
   },
   "acls": [],
   "methods": {}
