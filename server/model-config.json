@@ -54,5 +54,9 @@
   "Empleado": {
     "dataSource": "stasidb",
     "public": true
+  },
+  "Experiencia": {
+    "dataSource": "stasidb",
+    "public": true
   }
 }
