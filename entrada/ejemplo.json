@@ -1,0 +1,112 @@
+{
+	"id": 1,
+	"nombre": "Pablo",
+	"nacionalidad": "española",
+	"edad": 26,
+	"experienciaAños": 3,
+	"perfil": "Sería escribir una pequeña descripción del candidato con esta letra",
+	"experiencia": [{
+			"id": 1,
+			"empleadoId": 1,
+			"fechaOrigen": "01/03/2015",
+			"fechaFin": "01/12/2016",
+			"puesto": "programador",
+			"cliente": "Instituto Mexicano de Propiedad Intelectual",
+			"funciones": [{
+					"id": 1,
+					"experienciaId": 1,
+					"descripcion": "Desarrollo en una arquitectura en capas de la captura de solicitudes de patente en el sitio del Instituto Mexicano de la Propiedad Industrial."
+				},
+				{
+					"id": 2,
+					"experienciaId": 1,
+					"descripcion": "Desarrollo de los cuestionarios para la cédula de evaluación de los empleados."
+				},
+				{
+					"id": 3,
+					"experienciaId": 1,
+					"descripcion": "Creación y mapeo de tablas de BBDD"
+				},
+				{
+					"id": 4,
+					"experienciaId": 1,
+					"descripcion": "Programación de reportes PDF dinámicos mediante Jasper Reports"
+				},
+				{
+					"id": 5,
+					"experienciaId": 1,
+					"descripcion": "Análisis y diseño de módulos."
+				}
+			]
+		},
+		{
+			"id": 2,
+			"empleadoId": 1,
+			"fechaOrigen": "01/01/2017",
+			"fechaFin": "01/07/2017",
+			"puesto": "desarrollador Front",
+			"cliente": "ISBAN",
+			"funciones": [{
+					"id": 1,
+					"experienciaId": 2,
+					"descripcion": "Desarrollo en una arquitectura en capas de la captura de solicitudes de patente en el sitio del Instituto Mexicano de la Propiedad Industrial."
+				},
+				{
+					"id": 2,
+					"experienciaId": 2,
+					"descripcion": "Desarrollo de los cuestionarios para la cédula de evaluación de los empleados."
+				},
+				{
+					"id": 3,
+					"experienciaId": 2,
+					"descripcion": "Creación y mapeo de tablas de BBDD"
+				},
+				{
+					"id": 4,
+					"experienciaId": 2,
+					"descripcion": "Programación de reportes PDF dinámicos mediante Jasper Reports"
+				},
+				{
+					"id": 5,
+					"experienciaId": 2,
+					"descripcion": "Análisis y diseño de módulos."
+				}
+			]
+		}
+	],
+	"formacion": [{
+		"id": 1,
+		"empleadoId": 1,
+		"fechaOrigen": "01/01/2017",
+		"fechaFin": "01/07/2017",
+		"titulo": "Ingeniero en Informática",
+		"institucion": "Universidad Politecnica",
+		"pais": "España"
+	}, {
+		"id": 1,
+		"empleadoId": 1,
+		"fechaOrigen": "01/01/2017",
+		"fechaFin": "01/07/2017",
+		"titulo": "Desarrollador de Aplicaciones Multiplataforma",
+		"Institucion": "IES El Burrito de San Jorge",
+		"pais": "España"
+	}],
+	"formacionComplementaria": [{
+		"id": 1,
+		"fechaOrigen": "01/01/2017",
+		"fechaFin": "01/02/2017",
+		"titulacion": "Curso en Escuela BAI",
+		"pais": "España"
+	}],
+	"idiomas": [{
+		"id": 1,
+		"empleadoId": 1,
+		"idioma": "ingles",
+		"nivel": "alto"
+	}, {
+		"id": 2,
+		"empleadoId": 1,
+		"idioma": "aleman",
+		"nivel": "bajo"
+	}]
+}
