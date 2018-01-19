@@ -37,19 +37,19 @@
   },
   "Funcion": {
     "dataSource": "stasidb",
-    "public": true
+    "public": false
   },
   "Formacion": {
     "dataSource": "stasidb",
-    "public": true
+    "public": false
   },
   "FormacionComplementaria": {
     "dataSource": "stasidb",
-    "public": true
+    "public": false
   },
   "Idioma": {
     "dataSource": "stasidb",
-    "public": true
+    "public": false
   },
   "Empleado": {
     "dataSource": "stasidb",
@@ -57,10 +57,6 @@
   },
   "Experiencia": {
     "dataSource": "stasidb",
-    "public": true
-  },
-  "IdiomaEmpleado": {
-    "dataSource": "stasidb",
-    "public": true
+    "public": false
   }
 }

@@ -22,6 +22,12 @@
     "cliente": {
       "type": "string",
       "required": true
+    },
+    "funciones": {
+      "type": [
+        "Funcion"
+      ],
+      "required": true
     }
   },
   "validations": [],
