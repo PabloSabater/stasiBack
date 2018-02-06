@@ -98,15 +98,14 @@
 		"titulacion": "Curso en Escuela BAI",
 		"pais": "España"
 	}],
-	"idiomas": [{
-		"id": 1,
-		"empleadoId": 1,
-		"idioma": "ingles",
-		"nivel": "alto"
-	}, {
-		"id": 2,
-		"empleadoId": 1,
-		"idioma": "aleman",
-		"nivel": "bajo"
-	}]
+	"idiomas": [
+      {
+        "nombre": "Ingles",
+        "nivel": "Alto",
+        "reading": "B1",
+        "writing": "B1",
+        "listening": "B1",
+        "id": null
+      }
+	]	
 }

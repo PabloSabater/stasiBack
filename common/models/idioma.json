@@ -14,6 +14,18 @@
     "nivel": {
       "type": "string",
       "required": true
+    },
+    "reading": {
+      "type": "string",
+      "required": true
+    },
+    "writing": {
+      "type": "string",
+      "required": true
+    },
+    "listening": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
