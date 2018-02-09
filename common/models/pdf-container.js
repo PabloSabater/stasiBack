@@ -2,7 +2,11 @@
 var app = require('../../server/server');
 var PDFDocument = require ('pdfkit');
 var fs = require('fs');
-
+var fonts = {
+    normal:'Helvetica',
+    bold:'Helvetica-Bold',
+    italic:'Helvetica-Oblique'
+    }
 module.exports = function(Pdfcontainer) {
     
     Pdfcontainer.remoteMethod('generatePDFMetrica', {
@@ -57,7 +61,7 @@ module.exports = function(Pdfcontainer) {
         var filename ="Metrica_"+empleado.nombre+empleado.apellido+".pdf";
         filename = formatearFilename(filename);
         var doc = new PDFDocument({
-            size: 'LEGAL', 
+            size: 'A4', 
             info: {
               Title: 'Curriculum '+empleado.nombre+' '+empleado.apellido,
               Author: 'Metrica Consulting',
@@ -69,13 +73,13 @@ module.exports = function(Pdfcontainer) {
         doc.text('Datos Identificativos', 100, 100);
         
         //Insertamos Los Datos Identificativos
-        doc.font('Helvetica-Bold').text('Nombre:',100, 130)
+        doc.font(fonts.bold).text('Nombre:',100, 130)
         .moveDown().text('Edad:')
         .moveDown().text('Nacionalidad:')
         .moveDown().text('Perfil:')
         .moveDown().text('Experiencia:');
 
-        doc.font('Helvetica').text(empleado.nombre.substring(0,1)+'.'+empleado.apellido,250, 130)
+        doc.font(fonts.normal).text(empleado.nombre.substring(0,1)+'.'+empleado.apellido,250, 130)
         .moveDown().text(empleado.edad+' años')
         .moveDown().text(empleado.nacionalidad)
         .moveDown().text(empleado.experiencia[0].puesto)
@@ -86,29 +90,54 @@ module.exports = function(Pdfcontainer) {
         doc.rect(90, 115, 150, 150).stroke();
         
         //Perfil profesional
-        doc.font('Helvetica-Bold').text('PERFIL PROFESIONAL',105,280)
+        doc.font(fonts.bold).text('PERFIL PROFESIONAL',105,280)
            .moveDown()
-           .font('Helvetica').text(empleado.descPerfil);
+           .font(fonts.normal).text(empleado.descPerfil);
         //Experiencia Profesional
         doc.moveDown()
         .moveDown()
-        .moveDown()
-        .font('Helvetica-Bold').text('EXPERIENCIA PROFESIONAL');
-        
+        .font(fonts.bold).text('EXPERIENCIA PROFESIONAL');
         empleado.experiencia.forEach(function(exp){
-            doc.moveDown()
-               .font('Helvetica-Bold').text(formatDate(exp.fechaOrigen)+"-"+formatDate(exp.fechaFin)+'.'+exp.empresa)
-               .moveDown()
+            doc.moveDown().font(fonts.bold).text(formatDate(exp.fechaOrigen)+"-"+formatDate(exp.fechaFin)+'.'+exp.empresa)
                .text('Puesto: '+exp.puesto)
-               .moveDown()
-               .text('Cliente: '+exp.cliente)
-               .moveDown()
+               .text('Cliente: '+exp.cliente)   
                .text('Funciones:');
-               exp.funciones.forEach(function(func){
-                    doc.moveDown().circle(130, , 2).font('Helvetica').text(func.descripcion);
-            });
+               var funciones = exp.funciones.map(function (currentValue, index, array){
+                    return currentValue.descripcion;
+               });
+               doc.font(fonts.normal).list(funciones);
         });
-           
+        //Formacion
+        doc.moveDown()
+            .font(fonts.bold)
+            .text('FORMACION:');
+        empleado.formacion.forEach(function(f){
+            doc.moveDown()
+            .font(fonts.normal)
+            .text(f.fechaOrigen.getFullYear()+"-"+f.fechaFin.getFullYear()+" ")
+            .font(fonts.bold)
+            .text(f.titulo+" "+f.institucion+","+f.pais+".");
+        });
+
+         //Formacion Complementaria
+         doc.moveDown()
+         .font(fonts.bold)
+         .text('FORMACION COMPLEMENTARIA:');
+     empleado.formacionComplementaria.forEach(function(fc){
+         doc.moveDown()
+         .font(fonts.normal)
+         .text(fc.fechaOrigen.getFullYear()+"-"+fc.fechaFin.getFullYear()+" ")
+         .font(fonts.bold)
+         .text(fc.titulacion+", "+fc.pais+".");
+     });
+    //Formacion Complementaria
+    doc.moveDown()
+    .font(fonts.bold)
+    .text('IDIOMAS:');
+     empleado.idiomas.forEach(function(idioma){
+        doc.font(fonts.normal).text(idioma.nombre+". "+idioma.nivel);
+     });
+        
 
 
 
@@ -180,7 +209,8 @@ module.exports = function(Pdfcontainer) {
         var dia = fechaCreacion.getDate();
         var mes = fechaCreacion.getMonth()+1;
         var anyo = fechaCreacion.getFullYear();
-        if(mes< 10)mes="0"+mes;
+        if(mes < 10)mes="0"+mes;
+        if(dia < 10)dia="0"+dia;
         filename = ""+dia+mes+anyo+filename;
         return filename;
     }
