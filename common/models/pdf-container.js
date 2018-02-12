@@ -6,7 +6,15 @@ var fonts = {
     normal:'Helvetica',
     bold:'Helvetica-Bold',
     italic:'Helvetica-Oblique'
-    }
+    };
+//Size of A4
+var width = 595.28; 
+var height = 841.89;
+
+var lineHeight = 14;
+var footerLineHeight = 7;
+var linesPerPage = parseInt(height/lineHeight);
+
 module.exports = function(Pdfcontainer) {
     
     Pdfcontainer.remoteMethod('generatePDFMetrica', {
@@ -60,13 +68,16 @@ module.exports = function(Pdfcontainer) {
     function generarPDFMetrica(empleado){
         var filename ="Metrica_"+empleado.nombre+empleado.apellido+".pdf";
         filename = formatearFilename(filename);
+        var actualLine;
+        
         var doc = new PDFDocument({
-            size: 'A4', 
+            size: [width, height], 
             info: {
               Title: 'Curriculum '+empleado.nombre+' '+empleado.apellido,
               Author: 'Metrica Consulting',
             }
           });
+        
         //Insertamos el logo de Metrica
         doc.image('./server/static/img/metrica.jpg', 400, 50, {scale : 0.25});
         //Insertamos cabecera
@@ -97,51 +108,69 @@ module.exports = function(Pdfcontainer) {
         doc.moveDown()
         .moveDown()
         .font(fonts.bold).text('EXPERIENCIA PROFESIONAL');
-        empleado.experiencia.forEach(function(exp){
+        actualLine = parseInt(doc.y/lineHeight);
+        empleado.experiencia.forEach(function(exp, index){
+            var altura = 5 + exp.funciones.length;
+            checkPageBreak(doc, actualLine, altura)
             doc.moveDown().font(fonts.bold).text(formatDate(exp.fechaOrigen)+"-"+formatDate(exp.fechaFin)+'.'+exp.empresa)
-               .text('Puesto: '+exp.puesto)
-               .text('Cliente: '+exp.cliente)   
-               .text('Funciones:');
-               var funciones = exp.funciones.map(function (currentValue, index, array){
+            .text('Puesto: '+exp.puesto)
+            .text('Cliente: '+exp.cliente)   
+            .text('Funciones:');
+            var funciones = exp.funciones.map(function (currentValue, index, array){
                     return currentValue.descripcion;
-               });
-               doc.font(fonts.normal).list(funciones);
+            });
+            doc.font(fonts.normal).list(funciones);
+            actualLine = parseInt(doc.y/lineHeight);
         });
         //Formacion
+        actualLine = parseInt(doc.y/lineHeight);
+        checkPageBreak(doc, actualLine,2);
         doc.moveDown()
             .font(fonts.bold)
             .text('FORMACION:');
+        actualLine = parseInt(doc.y/lineHeight);
         empleado.formacion.forEach(function(f){
+            var altura = 3;
+            checkPageBreak(doc, actualLine, altura);
             doc.moveDown()
             .font(fonts.normal)
             .text(f.fechaOrigen.getFullYear()+"-"+f.fechaFin.getFullYear()+" ")
             .font(fonts.bold)
-            .text(f.titulo+" "+f.institucion+","+f.pais+".");
+            .text(f.titulo+" "+f.institucion+", "+f.pais+".");
+            actualLine = parseInt(doc.y/lineHeight);
         });
 
          //Formacion Complementaria
          doc.moveDown()
          .font(fonts.bold)
          .text('FORMACION COMPLEMENTARIA:');
-     empleado.formacionComplementaria.forEach(function(fc){
-         doc.moveDown()
-         .font(fonts.normal)
-         .text(fc.fechaOrigen.getFullYear()+"-"+fc.fechaFin.getFullYear()+" ")
-         .font(fonts.bold)
-         .text(fc.titulacion+", "+fc.pais+".");
-     });
-    //Formacion Complementaria
-    doc.moveDown()
-    .font(fonts.bold)
-    .text('IDIOMAS:');
-     empleado.idiomas.forEach(function(idioma){
-        doc.font(fonts.normal).text(idioma.nombre+". "+idioma.nivel);
-     });
-        
-
-
-
-        doc.pipe(
+         actualLine = parseInt(doc.y/lineHeight);
+         empleado.formacionComplementaria.forEach(function(fc){
+            var altura = 2;
+            checkPageBreak(doc, actualLine, altura)
+            doc.moveDown()
+            .font(fonts.normal)
+            .text(fc.fechaOrigen.getFullYear()+"-"+fc.fechaFin.getFullYear()+" ")
+            .font(fonts.bold)
+            .text(fc.titulacion+", "+fc.pais+".");
+            actualLine = parseInt(doc.y/lineHeight);
+            });
+            //Idiomas
+            doc.moveDown()
+            .font(fonts.bold)
+            .text('IDIOMAS:');
+            actualLine = parseInt(doc.y/lineHeight);
+            empleado.idiomas.forEach(function(idioma){
+                var altura = 2;
+                checkPageBreak(doc, actualLine, altura)
+                doc.font(fonts.normal).text(idioma.nombre+". "+idioma.nivel);
+                actualLine = parseInt(doc.y/lineHeight);
+            });
+            
+            
+            
+            
+            doc.pipe(
             fs.createWriteStream('./files/salida/'+filename)
           )
             .on('finish', function () {
@@ -227,5 +256,13 @@ module.exports = function(Pdfcontainer) {
         var year = date.getFullYear();
       
         return monthNames[monthIndex] + ' ' + year;
+      }
+
+      function checkPageBreak(doc, actualLine, altura){
+        if ((actualLine + altura) >= (linesPerPage-footerLineHeight)) {
+            doc.addPage();
+            return true;
+        }
+        return false;
       }
 };
