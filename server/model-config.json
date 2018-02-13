@@ -62,5 +62,9 @@
   "pdfContainer": {
     "dataSource": "storage",
     "public": true
+  },
+  "competenciasTecnicas": {
+    "dataSource": "stasidb",
+    "public": false
   }
 }

@@ -1,17 +1,12 @@
 {
-  "name": "pdfContainer",
-  "plural": "pdfs",
-  "base": "Model",
+  "name": "competenciasTecnicas",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "fechaCreacion": {
-      "type": "date",
-      "required": true
-    },
-    "nombre": {
+    "descripcion": {
       "type": "string",
       "required": true
     }

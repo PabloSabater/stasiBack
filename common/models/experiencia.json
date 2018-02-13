@@ -18,7 +18,7 @@
     "puesto": {
       "type": "string",
       "required": true
-    }, 
+    },
     "empresa": {
       "type": "string",
       "required": true

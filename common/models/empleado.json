@@ -31,6 +31,10 @@
       "type": "string",
       "required": true
     },
+    "perfil": {
+      "type": "string",
+      "required": true
+    },
     "experiencia": {
       "type": [
         "Experiencia"
@@ -52,6 +56,12 @@
     "idiomas": {
       "type": [
         "Idioma"
+      ],
+      "required": true
+    },
+    "competenciasTecnicas": {
+      "type": [
+        "competenciasTecnicas"
       ],
       "required": true
     }
