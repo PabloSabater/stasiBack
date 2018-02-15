@@ -115,7 +115,7 @@ module.exports = function(Pdfcontainer) {
             var funciones = exp.funciones.map(function (currentValue, index, array){
                     return currentValue.descripcion;
             });
-            doc.font(fonts.normal).list(funciones,{bulletRadius:0.1,textIndent:50});
+            doc.font(fonts.normal).list(funciones,{bulletRadius:0.01,textIndent:50});
             actualLine = parseInt(doc.y/lineHeight);
         });
         //Formacion
@@ -185,10 +185,13 @@ module.exports = function(Pdfcontainer) {
               Author: 'Metrica Consulting',
             }
           });
-        //Perfil
+          
+          //Perfil
+          
         doc.font(fonts.bold).fontSize(14).text("PERFIL",150, 80);
         doc.fontSize(12).text(empleado.perfil,220, 80);
-        
+        var inicioBarra = {x:doc.x - 10,y:doc.y-20};
+        doc.rect(inicioBarra.x,inicioBarra.y,0.3,height-100).stroke();
         doc.text("Candidato",140,100);
         doc.font(fonts.normal).text(empleado.nombre,220,100)
            .moveDown().text(empleado.descPerfil);
@@ -201,7 +204,7 @@ module.exports = function(Pdfcontainer) {
             var funciones = exp.funciones.map(function (currentValue){
                 return currentValue.descripcion;
             });
-            doc.list(funciones,{bulletRadius:0.1,textIndent:140});
+            doc.list(funciones,{bulletRadius:0.01,textIndent:140});
             
         });
         doc.moveDown();
@@ -216,27 +219,38 @@ module.exports = function(Pdfcontainer) {
         });
         doc.moveDown();
         //Capacidades y competencias personales
+        actualLine = parseInt(doc.y/lineHeight);
+        checkPageBreak(doc,actualLine,parseInt(90/lineHeight));
         doc.font(fonts.bold).fontSize(12).text("Capacidades y",{indent:30});
         doc.text("competencias personales",{indent:-33});
         doc.font(fonts.normal).fontSize(11);
         doc.moveDown();
-        doc.text("Otro(s) idiomas", {indent:40});
         empleado.idiomas.forEach(function(idioma){
-            doc.text("Idioma", {indent:80});
+            actualLine = parseInt(doc.y/lineHeight);
+            checkPageBreak(doc,actualLine,parseInt(60/lineHeight));
+            doc.fontSize(11).text("Idioma", {indent:80});
             doc.fontSize(10).text(idioma.nombre,{indent:130});
             doc.moveDown().fontSize(11).text("Autoevaluacion",{indent:40});
             var anchoHeader = doc.x + 130;
-            var altoHeader = doc.y - 10;
-            doc.font(fonts.bold).fontSize(11).text("Comprension              Habla               Escritura",{indent:160})
-                .rect(anchoHeader, altoHeader, 300, 70)
-                .rect(anchoHeader, altoHeader,120,70)
-                .rect(anchoHeader, altoHeader,180,70).stroke();
-                var altoIngles = doc.y;
-            doc.font(fonts.normal).fontSize(9).text(" Listening         Reading          Speaking                         Writing",{indent:140})
-                .rect(anchoHeader,altoIngles,300,50);
-
-
+            var altoHeader = doc.y - 5;
+            doc.font(fonts.bold).fontSize(11).text("Comprension              Habla                 Escritura",{indent:155})
+                .rect(anchoHeader, altoHeader, 300, 40)
+                .rect(anchoHeader, altoHeader,120,40)
+                .rect(anchoHeader, altoHeader,180,40).stroke();
+            doc.font(fonts.normal).fontSize(9).text(" Listening         Reading        Speaking                         Writing",{indent:150})
+            .rect(anchoHeader, altoHeader, 300, 15).stroke();
+            doc.font(fonts.normal).fontSize(9).text("          "+idioma.listening+"                  "+idioma.reading+"                    "+idioma.speaking+"                               "+idioma.writing,{indent:140})
+            doc.moveDown().moveDown();
         });
+        
+        //Capacidades y competencias tecnicas
+        actualLine = parseInt(doc.y/lineHeight);
+        checkPageBreak(doc,actualLine,parseInt(50/lineHeight));
+        doc.fontSize(11).text("Capacidades y competencias",{indent:-33});
+        doc.text("tecnicas",{indent:60});
+        doc.fontSize(10).text(enumerarCompetencias(empleado.competenciasTecnicas),215, doc.y);
+        doc.rect(inicioBarra.x,inicioBarra.y,0.3,doc.y-10).stroke();
+
 
         doc.pipe(
             fs.createWriteStream('./files/salida/'+filename)
@@ -249,7 +263,6 @@ module.exports = function(Pdfcontainer) {
     };
 
     function formatearFilename(filename){
-        
         var fechaCreacion = new Date();
         var dia = fechaCreacion.getDate();
         var mes = fechaCreacion.getMonth()+1;

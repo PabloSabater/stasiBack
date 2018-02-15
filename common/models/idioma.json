@@ -26,6 +26,10 @@
     "listening": {
       "type": "string",
       "required": true
+    },
+    "speaking": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
