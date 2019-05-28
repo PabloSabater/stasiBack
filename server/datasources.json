@@ -4,13 +4,13 @@
     "connector": "memory"
   },
   "stasidb": {
-    "host": "ds261527.mlab.com",
+    "host": "#####.mlab.com",
     "port": 61527,
     "url": "",
     "database": "stasidb",
-    "password": "root1234",
+    "password": "#####",
     "name": "stasidb",
-    "user": "root",
+    "user": "#####",
     "connector": "mongodb"
   },
   "storage": {
