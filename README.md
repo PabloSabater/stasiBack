@@ -27,7 +27,9 @@
 ## Functionality
 -    There is a full CRUD for the object Empleado where you can create, read, update and delete employees.
 -    You can generate PDFs of an employee using the endpoints:
+  
   `GET /pdfs/{id}/generatePDFEuropeo`
+  
   `GET /pdfs/{id}/generatePDFMetrica`
 
         These Endpoints generate the PDFs in the server and answer with the name of the file generated.
